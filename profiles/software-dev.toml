@@ -1,0 +1,65 @@
+# Perfil de ejemplo: desarrollo de software (JS/TS, React, Node, IA) remoto desde LatAm.
+# Copia este archivo como profile.toml y ajústalo a tu carrera.
+#
+# Palabras clave: no distinguen mayúsculas y coinciden con palabras completas
+# ("java" no coincide con "javascript"). Un "*" final las vuelve prefijo: "pasant*" → pasante, pasantía.
+
+[profile]
+name = "Desarrollo de software"
+
+[filters]
+# Se guarda la oferta si el título o los detalles contienen AL MENOS UNA de estas palabras.
+include = [
+  "react", "react native", "node", "node.js", "typescript", "javascript", "full stack", "fullstack", "full-stack",
+  "next.js", "nestjs", "expo", "mobile", "frontend", "front end", "front-end", "software", "developer", "engineer",
+  "desarrollador*", "programador*", "ai", "ia", "llm", "agent*", "genai", "inteligencia artificial",
+]
+# Se descarta si el TÍTULO contiene alguna de estas palabras.
+exclude = [
+  ".net", "c#", "java", "python", "golang", "ruby", "rails", "php", "wordpress", "laravel", "scala", "kotlin",
+  "swift", "android", "ios", "salesforce", "sap", "oracle", "principal", "staff", "director", "manager",
+  "gerente", "head of", "vp", "intern*", "pasant*", "práctica", "data engineer", "data scientist", "devops", "sre",
+  "qa", "tester", "security", "seguridad", "designer", "sales", "ventas", "marketing", "recruit*", "support",
+  "soporte", "writer", "annotat*", "trainer", "tutor",
+]
+# Ubicaciones aceptadas en bolsas remotas/globales. Déjalo vacío ([]) para aceptar cualquiera.
+# Las bolsas locales (Computrabajo, Elempleo, Get on Board) no se filtran por ubicación.
+locations = [
+  "latam", "latin america", "americas", "costa rica", "south america", "central america",
+  "anywhere", "worldwide", "global",
+]
+max_age_days = 10
+
+# search.py → LinkedIn, Indeed y Google (vía JobSpy)
+[search]
+terms = ["Software Engineer", "Full Stack Developer", "React Developer", "Node.js Developer"]
+location = "Costa Rica"
+country = "costa rica"            # país de Indeed: "mexico", "colombia", "argentina", "spain", "usa"...
+sites = ["linkedin", "indeed", "google"]
+remote = false
+hours = 72
+results = 20
+
+# boards.py → bolsas con API pública
+[boards]
+# Fuentes disponibles: remotive, remoteok, himalayas, getonbrd, computrabajo, elempleo, wellfound, hn, ats
+sources = ["remotive", "remoteok", "himalayas", "getonbrd", "computrabajo", "elempleo", "wellfound", "hn", "ats"]
+getonbrd_queries = ["react", "node", "typescript", "react native", "ai engineer", "fullstack"]
+computrabajo_country = "cr"       # subdominio: cr, mx, co, ar, pe, cl, ec, ve, ...
+computrabajo_queries = ["desarrollador", "programador", "react", "node", "full stack", "inteligencia artificial"]
+elempleo_country = "cr"           # cr o co
+wellfound_roles = ["software-engineer", "full-stack-engineer", "frontend-engineer", "mobile-engineer", "ai-engineer"]
+
+# Empresas cuyas vacantes se leen directo de su ATS. El valor es el slug de la URL pública:
+# boards.greenhouse.io/<slug>, jobs.lever.co/<slug>, jobs.ashbyhq.com/<slug>
+[boards.ats]
+greenhouse = [
+  "vercel", "gitlab", "remotecom", "figma", "stripe", "twilio", "datadog", "mongodb", "cloudflare", "wizeline",
+  "brex", "intercom", "anthropic", "coinbase", "contentful", "webflow", "elastic", "grafanalabs", "calendly",
+  "algolia", "clara", "quintoandar", "ebanx",
+]
+lever = ["yuno", "dlocal", "palantir"]
+ashby = [
+  "posthog", "supabase", "linear", "n8n", "zapier", "replit", "ramp", "notion", "openai", "cohere", "langchain",
+  "mercor", "resend", "cursor", "elevenlabs", "perplexity", "sierra", "decagon", "modal", "kraken.com", "belvo",
+]

@@ -1,0 +1,30 @@
+# Perfil de ejemplo: contabilidad y finanzas, presencial/híbrido en Colombia o remoto.
+# Las reglas de palabras clave están explicadas en profiles/software-dev.toml.
+
+[profile]
+name = "Contabilidad y finanzas"
+
+[filters]
+include = [
+  "contad*", "contable", "contabilidad", "accountant", "accounting", "finanzas", "financ*", "tesorería",
+  "treasury", "auditor*", "audit", "impuestos", "tax", "nómina", "payroll", "cuentas por pagar", "accounts payable",
+  "cuentas por cobrar", "accounts receivable", "analista financiero", "bookkeep*",
+]
+exclude = ["director", "vp", "head of", "cfo", "intern*", "pasant*", "práctica", "ventas", "sales"]
+locations = ["latam", "latin america", "americas", "colombia", "anywhere", "worldwide", "global"]
+max_age_days = 14
+
+[search]
+terms = ["Contador", "Analista Contable", "Analista Financiero", "Auxiliar Contable"]
+location = "Bogotá, Colombia"
+country = "colombia"
+sites = ["linkedin", "indeed", "google"]
+remote = false
+hours = 72
+results = 20
+
+[boards]
+sources = ["remotive", "himalayas", "computrabajo", "elempleo"]
+computrabajo_country = "co"
+computrabajo_queries = ["contador", "analista contable", "auxiliar contable", "analista financiero", "tesoreria"]
+elempleo_country = "co"

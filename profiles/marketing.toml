@@ -1,0 +1,34 @@
+# Perfil de ejemplo: marketing digital, contenido y growth, remoto o en México.
+# Las reglas de palabras clave están explicadas en profiles/software-dev.toml.
+
+[profile]
+name = "Marketing digital"
+
+[filters]
+include = [
+  "marketing", "growth", "seo", "sem", "content", "contenido", "social media", "redes sociales", "community",
+  "brand", "marca", "copywrit*", "performance", "paid media", "email", "crm", "comunicación", "digital",
+]
+exclude = ["director", "vp", "head of", "intern*", "pasant*", "práctica", "engineer", "developer", "desarrollador*"]
+locations = ["latam", "latin america", "americas", "mexico", "méxico", "anywhere", "worldwide", "global"]
+max_age_days = 14
+
+[search]
+terms = ["Marketing Digital", "Content Marketing", "Social Media Manager", "SEO Specialist"]
+location = "Mexico"
+country = "mexico"
+sites = ["linkedin", "indeed", "google"]
+remote = false
+hours = 72
+results = 20
+
+[boards]
+sources = ["remotive", "remoteok", "himalayas", "getonbrd", "computrabajo", "ats"]
+getonbrd_queries = ["marketing", "seo", "contenido", "community manager", "growth"]
+computrabajo_country = "mx"
+computrabajo_queries = ["marketing digital", "community manager", "seo", "redes sociales", "contenido"]
+
+# Muchas empresas de tecnología también contratan marketing.
+[boards.ats]
+greenhouse = ["hubspot", "webflow", "contentful", "calendly", "intercom", "remotecom", "wizeline"]
+ashby = ["notion", "zapier", "linear", "posthog"]
