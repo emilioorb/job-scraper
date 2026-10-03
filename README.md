@@ -29,6 +29,14 @@ pip install -r requirements.txt
 
 Si solo vas a usar `boards.py`, basta con `pip install requests`.
 
+## Configurar con una IA
+
+Si usas un asistente de código (Claude Code, Codex, Cursor, Copilot, Gemini CLI…), abre la carpeta del repo y pídele:
+
+> Ayúdame a configurar mi perfil de búsqueda de empleo.
+
+El asistente lee [`AGENTS.md`](AGENTS.md), te hace unas preguntas sobre tu carrera y crea `profile.toml`, instala las dependencias y ejecuta la búsqueda por ti.
+
 ## Uso
 
 1. Elige el perfil más parecido a tu carrera y cópialo como `profile.toml`:
