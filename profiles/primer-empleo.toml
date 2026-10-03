@@ -1,0 +1,31 @@
+# Perfil de ejemplo: prácticas, pasantías y primer empleo en administración, comercial y finanzas (Chile y Perú).
+# Las reglas de palabras clave están explicadas en profiles/software-dev.toml.
+
+[profile]
+name = "Primer empleo y prácticas"
+
+[filters]
+include = [
+  "práctica*", "practicante", "pasant*", "intern*", "trainee", "junior", "asistente", "auxiliar", "analista",
+  "administra*", "comercial", "finanzas", "contab*", "recursos humanos", "logística", "marketing",
+]
+exclude = ["senior", "sr", "jefe", "gerente", "director", "head of", "lead"]
+locations = ["chile", "perú", "peru", "latam", "anywhere", "worldwide"]
+max_age_days = 21
+
+[search]
+terms = ["Práctica profesional", "Trainee", "Analista Junior"]
+location = "Santiago, Chile"
+country = "chile"
+sites = ["linkedin", "indeed", "google"]
+remote = false
+hours = 72
+results = 20
+
+[boards]
+sources = ["firstjob", "computrabajo", "getonbrd"]
+firstjob_countries = ["cl", "pe"]
+firstjob_queries = ["práctica", "trainee", "analista", "administración", "comercial"]
+computrabajo_country = "cl"
+computrabajo_queries = ["practica profesional", "trainee", "analista junior", "asistente administrativo"]
+getonbrd_queries = ["trainee", "junior", "práctica"]

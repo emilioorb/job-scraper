@@ -42,12 +42,18 @@ results = 20
 
 # boards.py → bolsas con API pública
 [boards]
-# Fuentes disponibles: remotive, remoteok, himalayas, getonbrd, computrabajo, elempleo, wellfound, hn, ats
-sources = ["remotive", "remoteok", "himalayas", "getonbrd", "computrabajo", "elempleo", "wellfound", "hn", "ats"]
+# Fuentes disponibles: remotive, remoteok, himalayas, getonbrd, computrabajo, elempleo, firstjob, empleosnet,
+# wellfound, hn, ats
+sources = ["remotive", "remoteok", "himalayas", "getonbrd", "computrabajo", "elempleo", "empleosnet", "wellfound", "hn", "ats"]
 getonbrd_queries = ["react", "node", "typescript", "react native", "ai engineer", "fullstack"]
 computrabajo_country = "cr"       # subdominio: cr, mx, co, ar, pe, cl, ec, ve, ...
 computrabajo_queries = ["desarrollador", "programador", "react", "node", "full stack", "inteligencia artificial"]
 elempleo_country = "cr"           # cr o co
+empleosnet_country = "cr"         # en la práctica casi todas sus ofertas son de Costa Rica
+empleosnet_queries = ["desarrollador", "programador", "full stack"]
+# firstjob: prácticas y primer empleo. Países: cl, pe, co, mx, ar, ec, cam (Centroamérica)
+firstjob_countries = []
+firstjob_queries = []
 wellfound_roles = ["software-engineer", "full-stack-engineer", "frontend-engineer", "mobile-engineer", "ai-engineer"]
 
 # Empresas cuyas vacantes se leen directo de su ATS. El valor es el slug de la URL pública:

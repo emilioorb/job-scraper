@@ -34,13 +34,15 @@ Parte del ejemplo más parecido en `profiles/` (`software-dev.toml` tiene todos 
 |---|---|
 | `computrabajo` | Casi siempre en LatAm. Configura `computrabajo_country` (subdominio: `mx`, `co`, `ar`, `pe`, `cl`, `ec`, `cr`…) y `computrabajo_queries`. |
 | `elempleo` | Vive en Colombia (`co`) o Costa Rica (`cr`). |
+| `empleosnet` | Vive en Costa Rica (casi todas sus ofertas son de ahí). Configura `empleosnet_country = "cr"` y `empleosnet_queries`. |
+| `firstjob` | Es estudiante o busca prácticas o su primer empleo. Configura `firstjob_countries` (`cl`, `pe`, `co`, `mx`, `ar`, `ec`, `cam`) y `firstjob_queries`; no excluyas `práctica*`, `pasant*` ni `intern*`. |
 | `getonbrd` | Tecnología, diseño, marketing digital o datos en LatAm (solo trae ofertas remotas). |
 | `remotive`, `remoteok`, `himalayas` | Busca trabajo remoto. Tienen mucho de tecnología, pero también marketing, ventas, soporte, diseño, finanzas y escritura. |
 | `wellfound` | Startups (sobre todo tecnología). |
 | `hn` | Solo perfiles de tecnología. |
 | `ats` | Hay empresas concretas que le interesan y publican en Greenhouse, Lever o Ashby. |
 
-Para profesiones que no son de tecnología (salud, educación, oficios, comercio, administración), lo más útil suele ser `search.py` y `computrabajo`/`elempleo`. Quita las fuentes que no apliquen en vez de dejarlas todas.
+Para profesiones que no son de tecnología (salud, educación, oficios, comercio, administración), lo más útil suele ser `search.py` y `computrabajo`/`elempleo` (y `empleosnet` en Costa Rica). Quita las fuentes que no apliquen en vez de dejarlas todas.
 
 ## 3. Instalar
 
@@ -74,6 +76,26 @@ En Windows, si la consola muestra caracteres raros, define `PYTHONIOENCODING=utf
 Los CSV quedan en `results/`. En `boards_*.csv`, `is_new = True` marca las ofertas que no aparecían en búsquedas anteriores. Resume para la persona las más relevantes (título, empresa, ubicación, enlace) en lugar de mostrar el CSV completo.
 
 Si hay **demasiados resultados irrelevantes**, agrega palabras a `exclude` o quita palabras genéricas de `include`. Si hay **muy pocos**, amplía `include`, sube `max_age_days` o agrega fuentes y términos. Ajusta el perfil y vuelve a ejecutar.
+
+## 6. Adaptar el CV a una oferta
+
+Cuando la persona elija una oferta, ayúdale a preparar un CV adaptado a ese puesto.
+
+1. **CV base.** Si no existe `cv.md` en la raíz, pídele su CV actual (que lo pegue como texto o te indique la ruta de un PDF o Word) y transcríbelo a `cv.md` en Markdown, sin cambiar el contenido. `cv.md` y la carpeta `cvs/` están en `.gitignore`: son personales y no se suben.
+2. **Descripción del puesto.** Ejecuta `python describe.py <url>`. Funciona con LinkedIn, Greenhouse, Lever, Ashby, Computrabajo, Empleos.Net, FirstJob y la mayoría de las páginas de ofertas. Si devuelve poco texto (la página carga con JavaScript o pide iniciar sesión), pídele que copie y pegue la descripción.
+3. **Análisis.** Antes de escribir, muéstrale en pocas líneas:
+   - los requisitos clave de la oferta que **sí** cumple y dónde aparecen en su CV;
+   - los que **no** aparecen en su CV. Pregúntale si tiene esa experiencia: puede que la tenga y no la haya escrito.
+4. **CV adaptado.** Copia `templates/cv.html` a `cvs/<empresa>-<puesto>.html` y rellénalo:
+   - Título profesional y perfil alineados con el puesto, en el idioma de la oferta.
+   - Reordena experiencia, logros y habilidades para que lo más relevante vaya primero, y usa los términos de la oferta cuando describan algo que la persona realmente hizo (ayuda con los filtros ATS).
+   - Logros con resultados concretos; si faltan cifras, pregúntale en vez de inventarlas.
+   - Recorta lo irrelevante para que quepa en 1 página (2 como máximo con mucha experiencia).
+5. **PDF.** Indícale que abra el HTML en el navegador e imprima a PDF (Ctrl+P o Cmd+P → "Guardar como PDF", sin encabezados ni pies de página).
+
+**Nunca inventes** experiencia, títulos, empresas, fechas, cifras ni habilidades. Solo reordena, resalta y redacta mejor lo que la persona confirmó. Si un requisito no se cumple, díselo con honestidad: puede postularse igual o mencionarlo en la carta de presentación.
+
+Para más funciones (evaluar ofertas, cartas de presentación, seguimiento de postulaciones), recomienda [career-ops](https://github.com/career-ops-hq/career-ops).
 
 ## Errores comunes
 

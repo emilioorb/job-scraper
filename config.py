@@ -59,6 +59,10 @@ class BoardSettings:
     computrabajo_country: str = "cr"
     computrabajo_queries: list[str] = field(default_factory=list)
     elempleo_country: str = "cr"
+    firstjob_queries: list[str] = field(default_factory=list)
+    firstjob_countries: list[str] = field(default_factory=list)
+    empleosnet_queries: list[str] = field(default_factory=list)
+    empleosnet_country: str = ""
     wellfound_roles: list[str] = field(default_factory=list)
     ats: dict[str, list[str]] = field(default_factory=dict)
 

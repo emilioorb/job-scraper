@@ -26,7 +26,12 @@ HEADERS = {
 }
 RESULTS_DIR = Path(__file__).parent / "results"
 MAX_AGE_DAYS = {"hn": 35, "wellfound": 30, "greenhouse": 30, "lever": 30, "ashby": 30}
-LOCAL_SOURCES = {"getonbrd", "computrabajo", "elempleo"}
+LOCAL_SOURCES = {"getonbrd", "computrabajo", "elempleo", "firstjob", "empleosnet"}
+FIRSTJOB_COUNTRIES = {"cl": "43", "pe": "168", "co": "47", "mx": "138", "ar": "10", "ec": "62", "cam": "cam"}
+EMPLEOSNET_COUNTRIES = {
+    "ar": "13", "bo": "15", "cl": "14", "co": "18", "cr": "1", "ec": "17", "sv": "9", "es": "25", "gt": "4",
+    "hn": "8", "mx": "10", "ni": "5", "pa": "7", "py": "16", "pe": "3", "do": "6", "uy": "12", "ve": "11",
+}
 SPANISH_MONTHS = {m: i for i, m in enumerate(
     ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"], start=1)}
 
@@ -54,10 +59,18 @@ def build_session() -> requests.Session:
 SESSION = build_session()
 
 
-def get(url: str, **params: str) -> requests.Response:
+def get(url: str, **params: str | list[str]) -> requests.Response:
     response = SESSION.get(url, params=params, timeout=30)
     response.raise_for_status()
     return response
+
+
+def page_html(response: requests.Response) -> str:
+    """Algunas bolsas no declaran el charset y mezclan UTF-8 con Latin-1."""
+    try:
+        return response.content.decode("utf-8")
+    except UnicodeDecodeError:
+        return response.content.decode("cp1252", errors="replace")
 
 
 def iso_from_timestamp(seconds: float) -> str:
@@ -150,6 +163,42 @@ def elempleo(settings: BoardSettings) -> Iterator[Job]:
                   f"https://www.elempleo.com{title.group(1)}", "")
 
 
+def firstjob(settings: BoardSettings) -> Iterator[Job]:
+    """Prácticas y primer empleo. Las tarjetas no muestran fecha: lo nuevo se detecta con is_new."""
+    countries = [FIRSTJOB_COUNTRIES[c] for c in settings.firstjob_countries]
+    for query in settings.firstjob_queries:
+        page = page_html(get("https://firstjob.me/ofertas", title=query, **{"country[]": countries}))
+        for block in page.split('class="card-job ')[1:]:
+            link = re.search(r'href="(/oferta/[^"]+)"', block)
+            title = re.search(r'card-job-top--info-heading">([^<]+)', block)
+            if not (link and title):
+                continue
+            company = re.search(r'card-job-top--company[^>]*>([^<]+)', block)
+            location = re.search(r'card-job-top--location[^>]*>(?:<i[^>]*></i>)?([^<]+)', block)
+            details = re.search(r'card-job-description[^>]*>([^<]+)', block)
+            yield Job("firstjob", clean(title.group(1)), clean(company.group(1)) if company else "",
+                      clean(location.group(1)) if location else "", days_ago(0), f"https://firstjob.me{link.group(1)}",
+                      clean(details.group(1)) if details else "")
+
+
+def empleosnet(settings: BoardSettings) -> Iterator[Job]:
+    country = EMPLEOSNET_COUNTRIES.get(settings.empleosnet_country, "")
+    for query in settings.empleosnet_queries:
+        page = page_html(get("https://www.empleos.net/buscar_vacantes.php", Claves=query, Pais=country))
+        for block in page.split('<article class="xblog-item')[1:]:
+            link = re.search(r'<a href="(/puesto/[^"]+)"[^>]*>([^<]+)', block)
+            if not link:
+                continue
+            company = re.search(r'Empresa=\d+[^>]*>([^<]+)', block)
+            posted = re.search(r"icon-calendar[^>]*></i>\s*(\d{2})/(\d{2})/(\d{4})", block)
+            location = re.search(r"fa-map-marker[^>]*></i>\s*([^<]+)", block)
+            area = re.search(r"fa-align-center[^>]*></i>\s*([^<]+)", block)
+            yield Job("empleosnet", clean(link.group(2)), clean(company.group(1)) if company else "",
+                      clean(location.group(1)).rstrip(".") if location else "",
+                      f"{posted[3]}-{posted[2]}-{posted[1]}" if posted else days_ago(0),
+                      f"https://www.empleos.net{link.group(1)}", clean(area.group(1)) if area else "")
+
+
 def wellfound(settings: BoardSettings) -> Iterator[Job]:
     for role in settings.wellfound_roles:
         page = get(f"https://wellfound.com/role/r/{role}").text
@@ -226,7 +275,8 @@ def company_ats(settings: BoardSettings) -> Iterator[Job]:
 
 SOURCES: dict[str, Callable[[BoardSettings], Iterable[Job]]] = {
     "remotive": remotive, "remoteok": remoteok, "himalayas": himalayas, "getonbrd": getonbrd,
-    "computrabajo": computrabajo, "elempleo": elempleo, "wellfound": wellfound, "hn": hacker_news,
+    "computrabajo": computrabajo, "elempleo": elempleo, "firstjob": firstjob, "empleosnet": empleosnet,
+    "wellfound": wellfound, "hn": hacker_news,
     "ats": company_ats,
 }
 

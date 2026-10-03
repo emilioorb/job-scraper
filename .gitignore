@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 wheels/
 
-# Datos personales: tu perfil y los resultados de tus búsquedas
+# Datos personales: tu perfil, tus búsquedas y tus CVs
 profile.toml
 results/
+cv.md
+cvs/

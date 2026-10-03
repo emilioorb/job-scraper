@@ -2,7 +2,9 @@
 
 Busca ofertas de empleo en más de diez bolsas a la vez, las filtra según **tu carrera** y guarda un CSV con las nuevas desde la última búsqueda.
 
-Sirve para cualquier profesión: todo lo que se busca (palabras clave, país, bolsas, empresas) vive en un archivo de perfil, no en el código. Incluye perfiles de ejemplo para desarrollo de software, marketing digital y contabilidad/finanzas.
+Con un asistente de IA, además te ayuda a adaptar tu CV a cada oferta (ver [Configurar con una IA](#configurar-con-una-ia)).
+
+Sirve para cualquier profesión: todo lo que se busca (palabras clave, país, bolsas, empresas) vive en un archivo de perfil, no en el código. Incluye perfiles de ejemplo para desarrollo de software, marketing digital, contabilidad/finanzas y prácticas/primer empleo.
 
 ## Fuentes
 
@@ -11,9 +13,12 @@ Sirve para cualquier profesión: todo lo que se busca (palabras clave, país, bo
 | `search.py` | LinkedIn, Indeed, Google Jobs (vía [JobSpy](https://github.com/speedyapply/JobSpy)) | Generalistas |
 | `boards.py` | `remotive`, `remoteok`, `himalayas` | Trabajo remoto |
 | | `getonbrd`, `computrabajo`, `elempleo` | Bolsas de LatAm |
+| | `empleosnet` | Costa Rica (y algo de Panamá) |
+| | `firstjob` | Prácticas y primer empleo (Chile, Perú, Colombia, México, Argentina, Ecuador, Centroamérica) |
 | | `wellfound` | Startups |
 | | `hn` | Hilo mensual *Who is hiring* de Hacker News (solo tech) |
 | | `ats` | Vacantes directas de empresas en Greenhouse, Lever y Ashby |
+| `describe.py` | Texto completo de una oferta (LinkedIn, Greenhouse, Lever, Ashby y páginas web) | Para adaptar el CV |
 
 ## Instalación
 
@@ -36,6 +41,12 @@ Si usas un asistente de código (Claude Code, Codex, Cursor, Copilot, Gemini CLI
 > Ayúdame a configurar mi perfil de búsqueda de empleo.
 
 El asistente lee [`AGENTS.md`](AGENTS.md), te hace unas preguntas sobre tu carrera y crea `profile.toml`, instala las dependencias y ejecuta la búsqueda por ti.
+
+Cuando encuentres una oferta que te interese, pídele:
+
+> Adapta mi CV a esta oferta: <url>
+
+Descarga la descripción del puesto con `describe.py`, compara los requisitos con tu CV y genera una versión adaptada en `cvs/` a partir de `templates/cv.html`, lista para imprimir a PDF. Solo reorganiza y redacta lo que ya tienes: no inventa experiencia. Tu CV (`cv.md`) y los CVs generados no se suben al repo.
 
 ## Uso
 
@@ -106,11 +117,13 @@ computrabajo_queries = ["diseñador ux", "diseñador ui"]
 | `sources` | Fuentes a consultar. Quita las que no apliquen a tu carrera (p. ej. `hn` y `wellfound` son casi solo tech). |
 | `getonbrd_queries` | Búsquedas libres en Get on Board. |
 | `computrabajo_country` / `computrabajo_queries` | Subdominio del país (`mx`, `co`, `ar`, `pe`, `cl`, `cr`…) y búsquedas. |
+| `empleosnet_country` / `empleosnet_queries` | País y búsquedas en Empleos.Net. Acepta varios países, pero casi todas sus ofertas son de Costa Rica: úsalo con `cr`. |
+| `firstjob_countries` / `firstjob_queries` | Países (`cl`, `pe`, `co`, `mx`, `ar`, `ec`, `cam`) y búsquedas en FirstJob. Sus ofertas no traen fecha: usa `is_new` para ver lo nuevo. |
 | `elempleo_country` | `co` o `cr`. Solo trae las 50 ofertas más recientes (el buscador requiere sesión). |
 | `wellfound_roles` | Slugs de `wellfound.com/role/r/<slug>`. |
 | `[boards.ats]` | Empresas por ATS. El slug es el de la URL pública: `boards.greenhouse.io/<slug>`, `jobs.lever.co/<slug>`, `jobs.ashbyhq.com/<slug>`. |
 
-Las bolsas locales (`getonbrd`, `computrabajo`, `elempleo`) no se filtran por `locations`, porque ya son de un país o región.
+Las bolsas locales (`getonbrd`, `computrabajo`, `elempleo`, `empleosnet`, `firstjob`) no se filtran por `locations`, porque ya son de un país o región.
 
 ## Limitaciones
 

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nombre Apellido — CV</title>
+<style>
+  @page { size: A4; margin: 14mm 16mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0 auto; max-width: 780px; padding: 24px; font: 10.5pt/1.45 "Segoe UI", Calibri, Arial, sans-serif; color: #1f2328; }
+  h1 { margin: 0; font-size: 22pt; letter-spacing: -0.01em; }
+  .headline { margin: 2px 0 6px; font-size: 12pt; color: #3b4652; }
+  .contact { margin: 0 0 14px; color: #3b4652; }
+  .contact a { color: inherit; }
+  h2 { margin: 16px 0 6px; padding-bottom: 3px; border-bottom: 1.5px solid #1f2328; font-size: 11pt; text-transform: uppercase; letter-spacing: 0.06em; }
+  .entry { margin-bottom: 10px; break-inside: avoid; }
+  .entry-head { display: flex; justify-content: space-between; gap: 12px; font-weight: 600; }
+  .entry-sub { color: #3b4652; font-style: italic; }
+  ul { margin: 4px 0 0; padding-left: 18px; }
+  li { margin-bottom: 2px; }
+  p { margin: 0; }
+  @media print { body { padding: 0; } a { text-decoration: none; } }
+</style>
+</head>
+<body>
+  <h1>Nombre Apellido</h1>
+  <p class="headline">Título profesional alineado con el puesto</p>
+  <p class="contact">Ciudad, País · correo@ejemplo.com · +00 0000 0000 · <a href="https://linkedin.com/in/usuario">linkedin.com/in/usuario</a></p>
+
+  <h2>Perfil</h2>
+  <p>Dos o tres líneas: quién eres, cuántos años de experiencia y qué aportas, usando las palabras de la oferta que sí describan tu experiencia real.</p>
+
+  <h2>Experiencia</h2>
+  <div class="entry">
+    <div class="entry-head"><span>Puesto · Empresa</span><span>mes/año – presente</span></div>
+    <p class="entry-sub">Ciudad o Remoto</p>
+    <ul>
+      <li>Logro con verbo de acción y resultado medible (%, tiempo, dinero, personas, volumen).</li>
+      <li>Logro relacionado con un requisito de la oferta.</li>
+    </ul>
+  </div>
+
+  <h2>Educación</h2>
+  <div class="entry">
+    <div class="entry-head"><span>Título · Institución</span><span>año</span></div>
+  </div>
+
+  <h2>Habilidades</h2>
+  <p>Habilidades y herramientas, empezando por las que pide la oferta.</p>
+
+  <h2>Idiomas</h2>
+  <p>Español (nativo) · Inglés (nivel)</p>
+</body>
+</html>
